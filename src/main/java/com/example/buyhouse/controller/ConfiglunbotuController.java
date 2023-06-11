@@ -85,7 +85,7 @@ public class ConfiglunbotuController {
     @RequestMapping("/fanglunbotu")
     public List<Configlunbotu> fanglunbotu(String id) {
         List<Configlunbotu> configlunbotus = configlunbotuService.fanglunbotu(id);
-        System.out.println("测试git");
+
         return configlunbotus;
     }
 
