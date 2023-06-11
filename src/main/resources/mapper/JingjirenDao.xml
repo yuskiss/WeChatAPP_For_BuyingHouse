@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.buyhouse.dao.JingjirenDao">
+
+    <resultMap type="com.example.buyhouse.entity.Jingjiren" id="JingjirenMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="addtime" column="addtime" jdbcType="TIMESTAMP"/>
+        <result property="jingjirenzhanghao" column="jingjirenzhanghao" jdbcType="VARCHAR"/>
+        <result property="jingjirenxingming" column="jingjirenxingming" jdbcType="VARCHAR"/>
+        <result property="mima" column="mima" jdbcType="VARCHAR"/>
+        <result property="xingbie" column="xingbie" jdbcType="VARCHAR"/>
+        <result property="nianling" column="nianling" jdbcType="INTEGER"/>
+        <result property="lianxidianhua" column="lianxidianhua" jdbcType="VARCHAR"/>
+        <result property="dianziyouxiang" column="dianziyouxiang" jdbcType="VARCHAR"/>
+        <result property="mendianmingcheng" column="mendianmingcheng" jdbcType="VARCHAR"/>
+        <result property="touxiang" column="touxiang" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="JingjirenMap">
+        select
+          id, addtime, jingjirenzhanghao, jingjirenxingming, mima, xingbie, nianling, lianxidianhua, dianziyouxiang, mendianmingcheng, touxiang
+        from jingjiren
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="JingjirenMap">
+        select
+          id, addtime, jingjirenzhanghao, jingjirenxingming, mima, xingbie, nianling, lianxidianhua, dianziyouxiang, mendianmingcheng, touxiang
+        from jingjiren
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="addtime != null">
+                and addtime = #{addtime}
+            </if>
+            <if test="jingjirenzhanghao != null and jingjirenzhanghao != ''">
+                and jingjirenzhanghao = #{jingjirenzhanghao}
+            </if>
+            <if test="jingjirenxingming != null and jingjirenxingming != ''">
+                and jingjirenxingming = #{jingjirenxingming}
+            </if>
+            <if test="mima != null and mima != ''">
+                and mima = #{mima}
+            </if>
+            <if test="xingbie != null and xingbie != ''">
+                and xingbie = #{xingbie}
+            </if>
+            <if test="nianling != null">
+                and nianling = #{nianling}
+            </if>
+            <if test="lianxidianhua != null and lianxidianhua != ''">
+                and lianxidianhua = #{lianxidianhua}
+            </if>
+            <if test="dianziyouxiang != null and dianziyouxiang != ''">
+                and dianziyouxiang = #{dianziyouxiang}
+            </if>
+            <if test="mendianmingcheng != null and mendianmingcheng != ''">
+                and mendianmingcheng = #{mendianmingcheng}
+            </if>
+            <if test="touxiang != null and touxiang != ''">
+                and touxiang = #{touxiang}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from jingjiren
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="addtime != null">
+                and addtime = #{addtime}
+            </if>
+            <if test="jingjirenzhanghao != null and jingjirenzhanghao != ''">
+                and jingjirenzhanghao = #{jingjirenzhanghao}
+            </if>
+            <if test="jingjirenxingming != null and jingjirenxingming != ''">
+                and jingjirenxingming = #{jingjirenxingming}
+            </if>
+            <if test="mima != null and mima != ''">
+                and mima = #{mima}
+            </if>
+            <if test="xingbie != null and xingbie != ''">
+                and xingbie = #{xingbie}
+            </if>
+            <if test="nianling != null">
+                and nianling = #{nianling}
+            </if>
+            <if test="lianxidianhua != null and lianxidianhua != ''">
+                and lianxidianhua = #{lianxidianhua}
+            </if>
+            <if test="dianziyouxiang != null and dianziyouxiang != ''">
+                and dianziyouxiang = #{dianziyouxiang}
+            </if>
+            <if test="mendianmingcheng != null and mendianmingcheng != ''">
+                and mendianmingcheng = #{mendianmingcheng}
+            </if>
+            <if test="touxiang != null and touxiang != ''">
+                and touxiang = #{touxiang}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into jingjiren(addtime, jingjirenzhanghao, jingjirenxingming, mima, xingbie, nianling, lianxidianhua, dianziyouxiang, mendianmingcheng, touxiang)
+        values (#{addtime}, #{jingjirenzhanghao}, #{jingjirenxingming}, #{mima}, #{xingbie}, #{nianling}, #{lianxidianhua}, #{dianziyouxiang}, #{mendianmingcheng}, #{touxiang})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into jingjiren(addtime, jingjirenzhanghao, jingjirenxingming, mima, xingbie, nianling, lianxidianhua, dianziyouxiang, mendianmingcheng, touxiang)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.addtime}, #{entity.jingjirenzhanghao}, #{entity.jingjirenxingming}, #{entity.mima}, #{entity.xingbie}, #{entity.nianling}, #{entity.lianxidianhua}, #{entity.dianziyouxiang}, #{entity.mendianmingcheng}, #{entity.touxiang})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into jingjiren(addtime, jingjirenzhanghao, jingjirenxingming, mima, xingbie, nianling, lianxidianhua, dianziyouxiang, mendianmingcheng, touxiang)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.addtime}, #{entity.jingjirenzhanghao}, #{entity.jingjirenxingming}, #{entity.mima}, #{entity.xingbie}, #{entity.nianling}, #{entity.lianxidianhua}, #{entity.dianziyouxiang}, #{entity.mendianmingcheng}, #{entity.touxiang})
+        </foreach>
+        on duplicate key update
+        addtime = values(addtime),
+        jingjirenzhanghao = values(jingjirenzhanghao),
+        jingjirenxingming = values(jingjirenxingming),
+        mima = values(mima),
+        xingbie = values(xingbie),
+        nianling = values(nianling),
+        lianxidianhua = values(lianxidianhua),
+        dianziyouxiang = values(dianziyouxiang),
+        mendianmingcheng = values(mendianmingcheng),
+        touxiang = values(touxiang)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update jingjiren
+        <set>
+            <if test="addtime != null">
+                addtime = #{addtime},
+            </if>
+            <if test="jingjirenzhanghao != null and jingjirenzhanghao != ''">
+                jingjirenzhanghao = #{jingjirenzhanghao},
+            </if>
+            <if test="jingjirenxingming != null and jingjirenxingming != ''">
+                jingjirenxingming = #{jingjirenxingming},
+            </if>
+            <if test="mima != null and mima != ''">
+                mima = #{mima},
+            </if>
+            <if test="xingbie != null and xingbie != ''">
+                xingbie = #{xingbie},
+            </if>
+            <if test="nianling != null">
+                nianling = #{nianling},
+            </if>
+            <if test="lianxidianhua != null and lianxidianhua != ''">
+                lianxidianhua = #{lianxidianhua},
+            </if>
+            <if test="dianziyouxiang != null and dianziyouxiang != ''">
+                dianziyouxiang = #{dianziyouxiang},
+            </if>
+            <if test="mendianmingcheng != null and mendianmingcheng != ''">
+                mendianmingcheng = #{mendianmingcheng},
+            </if>
+            <if test="touxiang != null and touxiang != ''">
+                touxiang = #{touxiang},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from jingjiren where id = #{id}
+    </delete>
+
+    <select id="alljinjiren" resultType="com.example.buyhouse.entity.Jingjiren">
+        select * from jingjiren;
+    </select>
+
+</mapper>
+

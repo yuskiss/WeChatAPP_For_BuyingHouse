@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.buyhouse.dao.ShoufangdingdanDao">
+
+    <resultMap type="com.example.buyhouse.entity.Shoufangdingdan" id="ShoufangdingdanMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="addtime" column="addtime" jdbcType="TIMESTAMP"/>
+        <result property="dingdanbianhao" column="dingdanbianhao" jdbcType="VARCHAR"/>
+        <result property="fangyuanmingcheng" column="fangyuanmingcheng" jdbcType="VARCHAR"/>
+        <result property="zongjine" column="zongjine" jdbcType="VARCHAR"/>
+        <result property="jingjirenzhanghao" column="jingjirenzhanghao" jdbcType="VARCHAR"/>
+        <result property="jingjirenxingming" column="jingjirenxingming" jdbcType="VARCHAR"/>
+        <result property="yonghuzhanghao" column="yonghuzhanghao" jdbcType="VARCHAR"/>
+        <result property="yonghuxingming" column="yonghuxingming" jdbcType="VARCHAR"/>
+        <result property="goumaishijian" column="goumaishijian" jdbcType="TIMESTAMP"/>
+        <result property="ispay" column="ispay" jdbcType="VARCHAR"/>
+        <result property="yonghudianhua" column="yonghudianhua" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="ShoufangdingdanMap">
+        select
+          id, addtime, dingdanbianhao, fangyuanmingcheng, zongjine, jingjirenzhanghao, jingjirenxingming, yonghuzhanghao, yonghuxingming, goumaishijian, ispay, yonghudianhua
+        from shoufangdingdan
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="ShoufangdingdanMap">
+        select
+          id, addtime, dingdanbianhao, fangyuanmingcheng, zongjine, jingjirenzhanghao, jingjirenxingming, yonghuzhanghao, yonghuxingming, goumaishijian, ispay, yonghudianhua
+        from shoufangdingdan
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="addtime != null">
+                and addtime = #{addtime}
+            </if>
+            <if test="dingdanbianhao != null and dingdanbianhao != ''">
+                and dingdanbianhao = #{dingdanbianhao}
+            </if>
+            <if test="fangyuanmingcheng != null and fangyuanmingcheng != ''">
+                and fangyuanmingcheng = #{fangyuanmingcheng}
+            </if>
+            <if test="zongjine != null and zongjine != ''">
+                and zongjine = #{zongjine}
+            </if>
+            <if test="jingjirenzhanghao != null and jingjirenzhanghao != ''">
+                and jingjirenzhanghao = #{jingjirenzhanghao}
+            </if>
+            <if test="jingjirenxingming != null and jingjirenxingming != ''">
+                and jingjirenxingming = #{jingjirenxingming}
+            </if>
+            <if test="yonghuzhanghao != null and yonghuzhanghao != ''">
+                and yonghuzhanghao = #{yonghuzhanghao}
+            </if>
+            <if test="yonghuxingming != null and yonghuxingming != ''">
+                and yonghuxingming = #{yonghuxingming}
+            </if>
+            <if test="goumaishijian != null">
+                and goumaishijian = #{goumaishijian}
+            </if>
+            <if test="ispay != null and ispay != ''">
+                and ispay = #{ispay}
+            </if>
+            <if test="yonghudianhua != null and yonghudianhua != ''">
+                and yonghudianhua = #{yonghudianhua}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from shoufangdingdan
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="addtime != null">
+                and addtime = #{addtime}
+            </if>
+            <if test="dingdanbianhao != null and dingdanbianhao != ''">
+                and dingdanbianhao = #{dingdanbianhao}
+            </if>
+            <if test="fangyuanmingcheng != null and fangyuanmingcheng != ''">
+                and fangyuanmingcheng = #{fangyuanmingcheng}
+            </if>
+            <if test="zongjine != null and zongjine != ''">
+                and zongjine = #{zongjine}
+            </if>
+            <if test="jingjirenzhanghao != null and jingjirenzhanghao != ''">
+                and jingjirenzhanghao = #{jingjirenzhanghao}
+            </if>
+            <if test="jingjirenxingming != null and jingjirenxingming != ''">
+                and jingjirenxingming = #{jingjirenxingming}
+            </if>
+            <if test="yonghuzhanghao != null and yonghuzhanghao != ''">
+                and yonghuzhanghao = #{yonghuzhanghao}
+            </if>
+            <if test="yonghuxingming != null and yonghuxingming != ''">
+                and yonghuxingming = #{yonghuxingming}
+            </if>
+            <if test="goumaishijian != null">
+                and goumaishijian = #{goumaishijian}
+            </if>
+            <if test="ispay != null and ispay != ''">
+                and ispay = #{ispay}
+            </if>
+            <if test="yonghudianhua != null and yonghudianhua != ''">
+                and yonghudianhua = #{yonghudianhua}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into shoufangdingdan(addtime, dingdanbianhao, fangyuanmingcheng, zongjine, jingjirenzhanghao, jingjirenxingming, yonghuzhanghao, yonghuxingming, goumaishijian, ispay, yonghudianhua)
+        values (#{addtime}, #{dingdanbianhao}, #{fangyuanmingcheng}, #{zongjine}, #{jingjirenzhanghao}, #{jingjirenxingming}, #{yonghuzhanghao}, #{yonghuxingming}, #{goumaishijian}, #{ispay}, #{yonghudianhua})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into shoufangdingdan(addtime, dingdanbianhao, fangyuanmingcheng, zongjine, jingjirenzhanghao, jingjirenxingming, yonghuzhanghao, yonghuxingming, goumaishijian, ispay, yonghudianhua)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.addtime}, #{entity.dingdanbianhao}, #{entity.fangyuanmingcheng}, #{entity.zongjine}, #{entity.jingjirenzhanghao}, #{entity.jingjirenxingming}, #{entity.yonghuzhanghao}, #{entity.yonghuxingming}, #{entity.goumaishijian}, #{entity.ispay}, #{entity.yonghudianhua})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into shoufangdingdan(addtime, dingdanbianhao, fangyuanmingcheng, zongjine, jingjirenzhanghao, jingjirenxingming, yonghuzhanghao, yonghuxingming, goumaishijian, ispay, yonghudianhua)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.addtime}, #{entity.dingdanbianhao}, #{entity.fangyuanmingcheng}, #{entity.zongjine}, #{entity.jingjirenzhanghao}, #{entity.jingjirenxingming}, #{entity.yonghuzhanghao}, #{entity.yonghuxingming}, #{entity.goumaishijian}, #{entity.ispay}, #{entity.yonghudianhua})
+        </foreach>
+        on duplicate key update
+        addtime = values(addtime),
+        dingdanbianhao = values(dingdanbianhao),
+        fangyuanmingcheng = values(fangyuanmingcheng),
+        zongjine = values(zongjine),
+        jingjirenzhanghao = values(jingjirenzhanghao),
+        jingjirenxingming = values(jingjirenxingming),
+        yonghuzhanghao = values(yonghuzhanghao),
+        yonghuxingming = values(yonghuxingming),
+        goumaishijian = values(goumaishijian),
+        ispay = values(ispay),
+        yonghudianhua = values(yonghudianhua)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update shoufangdingdan
+        <set>
+            <if test="addtime != null">
+                addtime = #{addtime},
+            </if>
+            <if test="dingdanbianhao != null and dingdanbianhao != ''">
+                dingdanbianhao = #{dingdanbianhao},
+            </if>
+            <if test="fangyuanmingcheng != null and fangyuanmingcheng != ''">
+                fangyuanmingcheng = #{fangyuanmingcheng},
+            </if>
+            <if test="zongjine != null and zongjine != ''">
+                zongjine = #{zongjine},
+            </if>
+            <if test="jingjirenzhanghao != null and jingjirenzhanghao != ''">
+                jingjirenzhanghao = #{jingjirenzhanghao},
+            </if>
+            <if test="jingjirenxingming != null and jingjirenxingming != ''">
+                jingjirenxingming = #{jingjirenxingming},
+            </if>
+            <if test="yonghuzhanghao != null and yonghuzhanghao != ''">
+                yonghuzhanghao = #{yonghuzhanghao},
+            </if>
+            <if test="yonghuxingming != null and yonghuxingming != ''">
+                yonghuxingming = #{yonghuxingming},
+            </if>
+            <if test="goumaishijian != null">
+                goumaishijian = #{goumaishijian},
+            </if>
+            <if test="ispay != null and ispay != ''">
+                ispay = #{ispay},
+            </if>
+            <if test="yonghudianhua != null and yonghudianhua != ''">
+                yonghudianhua = #{yonghudianhua},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from shoufangdingdan where id = #{id}
+    </delete>
+
+    <select id="getpage" resultType="com.example.buyhouse.entity.Shoufangdingdan">
+        select * from shoufangdingdan
+        <where>
+            <if test="query != null and query != ''">
+                and dingdanbianhao like concat ('%',#{query},'%')
+            </if>
+        </where>
+    </select>
+
+    <update id="updateIspayByid">
+        update shoufangdingdan
+        <set>
+
+            <if test="ispay != null and ispay != ''">
+                ispay = #{ispay},
+            </if>
+
+        </set>
+        where id = #{id}
+    </update>
+
+
+    <delete id="deleteByopidandid">
+        delete from shoufangdingdan
+            <where>
+                yonghuzhanghao = #{arg0} and fangyuanmingcheng like concat ('%',#{arg1},'%')
+            </where>
+    </delete>
+
+    <select id="findall" resultType="com.example.buyhouse.entity.Shoufangdingdan">
+        select * from shoufangdingdan
+    </select>
+</mapper>
+

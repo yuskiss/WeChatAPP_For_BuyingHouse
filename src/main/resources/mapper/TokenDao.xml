@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.buyhouse.dao.TokenDao">
+
+    <resultMap type="com.example.buyhouse.entity.Token" id="TokenMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="userid" column="userid" jdbcType="VARCHAR"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="tablename" column="tablename" jdbcType="VARCHAR"/>
+        <result property="role" column="role" jdbcType="VARCHAR"/>
+        <result property="token" column="token" jdbcType="VARCHAR"/>
+        <result property="addtime" column="addtime" jdbcType="TIMESTAMP"/>
+        <result property="expiratedtime" column="expiratedtime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="TokenMap">
+        select
+          id, userid, username, tablename, role, token, addtime, expiratedtime
+        from token
+        where id = #{id}
+    </select>
+<!--通过userid=openID查找单个-->
+    <select id="queryByUserid" resultMap="TokenMap">
+        select
+            id, userid, username, tablename, role, token, addtime, expiratedtime
+        from token
+        where userid = #{userid}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="TokenMap">
+        select
+          id, userid, username, tablename, role, token, addtime, expiratedtime
+        from token
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="userid != null and userid != ''">
+                and userid = #{userid}
+            </if>
+            <if test="username != null and username != ''">
+                and username = #{username}
+            </if>
+            <if test="tablename != null and tablename != ''">
+                and tablename = #{tablename}
+            </if>
+            <if test="role != null and role != ''">
+                and role = #{role}
+            </if>
+            <if test="token != null and token != ''">
+                and token = #{token}
+            </if>
+            <if test="addtime != null">
+                and addtime = #{addtime}
+            </if>
+            <if test="expiratedtime != null">
+                and expiratedtime = #{expiratedtime}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from token
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="userid != null and userid != ''">
+                and userid = #{userid}
+            </if>
+            <if test="username != null and username != ''">
+                and username = #{username}
+            </if>
+            <if test="tablename != null and tablename != ''">
+                and tablename = #{tablename}
+            </if>
+            <if test="role != null and role != ''">
+                and role = #{role}
+            </if>
+            <if test="token != null and token != ''">
+                and token = #{token}
+            </if>
+            <if test="addtime != null">
+                and addtime = #{addtime}
+            </if>
+            <if test="expiratedtime != null">
+                and expiratedtime = #{expiratedtime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into token(userid, username, tablename, role, token, addtime, expiratedtime)
+        values (#{userid}, #{username}, #{tablename}, #{role}, #{token}, #{addtime}, #{expiratedtime})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into token(userid, username, tablename, role, token, addtime, expiratedtime)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.userid}, #{entity.username}, #{entity.tablename}, #{entity.role}, #{entity.token}, #{entity.addtime}, #{entity.expiratedtime})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into token(userid, username, tablename, role, token, addtime, expiratedtime)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.userid}, #{entity.username}, #{entity.tablename}, #{entity.role}, #{entity.token}, #{entity.addtime}, #{entity.expiratedtime})
+        </foreach>
+        on duplicate key update
+        userid = values(userid),
+        username = values(username),
+        tablename = values(tablename),
+        role = values(role),
+        token = values(token),
+        addtime = values(addtime),
+        expiratedtime = values(expiratedtime)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update token
+        <set>
+            <if test="userid != null and userid != ''">
+                userid = #{userid},
+            </if>
+            <if test="username != null and username != ''">
+                username = #{username},
+            </if>
+            <if test="tablename != null and tablename != ''">
+                tablename = #{tablename},
+            </if>
+            <if test="role != null and role != ''">
+                role = #{role},
+            </if>
+            <if test="token != null and token != ''">
+                token = #{token},
+            </if>
+            <if test="addtime != null">
+                addtime = #{addtime},
+            </if>
+            <if test="expiratedtime != null">
+                expiratedtime = #{expiratedtime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from token where id = #{id}
+    </delete>
+
+    <!--通过主键修改数据-->
+    <update id="updatebyuserid">
+        update token
+        <set>
+
+            <if test="username != null and username != ''">
+                username = #{username},
+            </if>
+            <if test="tablename != null and tablename != ''">
+                tablename = #{tablename},
+            </if>
+            <if test="role != null and role != ''">
+                role = #{role},
+            </if>
+            <if test="token != null and token != ''">
+                token = #{token},
+            </if>
+            <if test="addtime != null">
+                addtime = #{addtime},
+            </if>
+            <if test="expiratedtime != null">
+                expiratedtime = #{expiratedtime},
+            </if>
+        </set>
+        where userid = #{userid}
+    </update>
+
+</mapper>
+

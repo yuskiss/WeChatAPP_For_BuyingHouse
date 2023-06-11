@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.buyhouse.dao.OpenidDao">
+
+    <resultMap type="com.example.buyhouse.entity.Openid" id="OpenidMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="uopenid" column="uopenid" jdbcType="VARCHAR"/>
+        <result property="nickname" column="nickname" jdbcType="VARCHAR"/>
+        <result property="avatarurl" column="avatarurl" jdbcType="VARCHAR"/>
+        <result property="code" column="code" jdbcType="VARCHAR"/>
+
+        <result property="token.userid" column="userid" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="OpenidMap">
+        select
+          id, uopenid, nickname, avatarurl, code
+        from openid
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="OpenidMap">
+        select
+          id, uopenid, nickname, avatarurl, code
+        from openid
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="uopenid != null and uopenid != ''">
+                and uopenid = #{uopenid}
+            </if>
+            <if test="nickname != null and nickname != ''">
+                and nickname = #{nickname}
+            </if>
+            <if test="avatarurl != null and avatarurl != ''">
+                and avatarurl = #{avatarurl}
+            </if>
+            <if test="code != null and code != ''">
+                and code = #{code}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from openid
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="uopenid != null and uopenid != ''">
+                and uopenid = #{uopenid}
+            </if>
+            <if test="nickname != null and nickname != ''">
+                and nickname = #{nickname}
+            </if>
+            <if test="avatarurl != null and avatarurl != ''">
+                and avatarurl = #{avatarurl}
+            </if>
+            <if test="code != null and code != ''">
+                and code = #{code}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into openid(uopenid, nickname, avatarurl, code)
+        values (#{uopenid}, #{nickname}, #{avatarurl}, #{code})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into openid(uopenid, nickname, avatarurl, code)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.uopenid}, #{entity.nickname}, #{entity.avatarurl}, #{entity.code})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into openid(uopenid, nickname, avatarurl, code)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.uopenid}, #{entity.nickname}, #{entity.avatarurl}, #{entity.code})
+        </foreach>
+        on duplicate key update
+        uopenid = values(uopenid),
+        nickname = values(nickname),
+        avatarurl = values(avatarurl),
+        code = values(code)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update openid
+        <set>
+            <if test="uopenid != null and uopenid != ''">
+                uopenid = #{uopenid},
+            </if>
+            <if test="nickname != null and nickname != ''">
+                nickname = #{nickname},
+            </if>
+            <if test="avatarurl != null and avatarurl != ''">
+                avatarurl = #{avatarurl},
+            </if>
+            <if test="code != null and code != ''">
+                code = #{code},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+<!--    通过openID修改-->
+    <update id="updatebyopenid">
+        update openid
+        <set>
+
+            <if test="nickname != null and nickname != ''">
+                nickname = #{nickname},
+            </if>
+            <if test="avatarurl != null and avatarurl != ''">
+                avatarurl = #{avatarurl},
+            </if>
+            <if test="code != null and code != ''">
+                code = #{code},
+            </if>
+        </set>
+        where uopenid = #{uopenid}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from openid where id = #{id}
+    </delete>
+
+    <select id="openid" resultMap="OpenidMap">
+        SELECT * FROM openid o , token t WHERE o.`id` = t.`id`;
+    </select>
+
+    <select id="searchByOpenid" resultMap="OpenidMap">
+        SELECT * FROM openid where uopenid = #{realopenid};
+    </select>
+
+    <select id="getpage" resultType="com.example.buyhouse.entity.Openid">
+        select * from openid
+        <where>
+            <if test="query != null and query != ''">
+                and nickname like concat ('%',#{query},'%')
+            </if>
+        </where>
+    </select>
+
+</mapper>
+

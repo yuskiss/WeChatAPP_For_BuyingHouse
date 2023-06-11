@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.buyhouse.dao.FangyuanxinxiDao">
+
+    <resultMap type="com.example.buyhouse.entity.Fangyuanxinxi" id="FangyuanxinxiMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="addtime" column="addtime" jdbcType="TIMESTAMP"/>
+        <result property="fangyuanmingcheng" column="fangyuanmingcheng" jdbcType="VARCHAR"/>
+        <result property="fangyuanleixing" column="fangyuanleixing" jdbcType="VARCHAR"/>
+        <result property="fangzihuxing" column="fangzihuxing" jdbcType="VARCHAR"/>
+        <result property="fangyuanquyu" column="fangyuanquyu" jdbcType="VARCHAR"/>
+        <result property="fangyuantupian" column="fangyuantupian" jdbcType="VARCHAR"/>
+        <result property="zhuangtai" column="zhuangtai" jdbcType="VARCHAR"/>
+        <result property="jutiweizhi" column="jutiweizhi" jdbcType="VARCHAR"/>
+        <result property="mianji" column="mianji" jdbcType="VARCHAR"/>
+        <result property="meimijiage" column="meimijiage" jdbcType="VARCHAR"/>
+        <result property="zongjine" column="zongjine" jdbcType="VARCHAR"/>
+        <result property="jingjirenzhanghao" column="jingjirenzhanghao" jdbcType="VARCHAR"/>
+        <result property="jingjirenxingming" column="jingjirenxingming" jdbcType="VARCHAR"/>
+        <result property="fabushijian" column="fabushijian" jdbcType="TIMESTAMP"/>
+        <result property="userid" column="userid" jdbcType="INTEGER"/>
+        <result property="miaoshu" column="miaoshu" jdbcType="VARCHAR"/>
+        <result property="zhuangxiu" column="zhuangxiu" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="FangyuanxinxiMap">
+        select
+          id, addtime, fangyuanmingcheng, fangyuanleixing, fangzihuxing, fangyuanquyu, fangyuantupian, zhuangtai, jutiweizhi, mianji, meimijiage, zongjine, jingjirenzhanghao, jingjirenxingming, fabushijian, userid, miaoshu, zhuangxiu
+        from fangyuanxinxi
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="FangyuanxinxiMap">
+        select
+          id, addtime, fangyuanmingcheng, fangyuanleixing, fangzihuxing, fangyuanquyu, fangyuantupian, zhuangtai, jutiweizhi, mianji, meimijiage, zongjine, jingjirenzhanghao, jingjirenxingming, fabushijian, userid, miaoshu, zhuangxiu
+        from fangyuanxinxi
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="addtime != null">
+                and addtime = #{addtime}
+            </if>
+            <if test="fangyuanmingcheng != null and fangyuanmingcheng != ''">
+                and fangyuanmingcheng = #{fangyuanmingcheng}
+            </if>
+            <if test="fangyuanleixing != null and fangyuanleixing != ''">
+                and fangyuanleixing = #{fangyuanleixing}
+            </if>
+            <if test="fangzihuxing != null and fangzihuxing != ''">
+                and fangzihuxing = #{fangzihuxing}
+            </if>
+            <if test="fangyuanquyu != null and fangyuanquyu != ''">
+                and fangyuanquyu = #{fangyuanquyu}
+            </if>
+            <if test="fangyuantupian != null and fangyuantupian != ''">
+                and fangyuantupian = #{fangyuantupian}
+            </if>
+            <if test="zhuangtai != null and zhuangtai != ''">
+                and zhuangtai = #{zhuangtai}
+            </if>
+            <if test="jutiweizhi != null and jutiweizhi != ''">
+                and jutiweizhi = #{jutiweizhi}
+            </if>
+            <if test="mianji != null and mianji != ''">
+                and mianji = #{mianji}
+            </if>
+            <if test="meimijiage != null and meimijiage != ''">
+                and meimijiage = #{meimijiage}
+            </if>
+            <if test="zongjine != null and zongjine != ''">
+                and zongjine = #{zongjine}
+            </if>
+            <if test="jingjirenzhanghao != null and jingjirenzhanghao != ''">
+                and jingjirenzhanghao = #{jingjirenzhanghao}
+            </if>
+            <if test="jingjirenxingming != null and jingjirenxingming != ''">
+                and jingjirenxingming = #{jingjirenxingming}
+            </if>
+            <if test="fabushijian != null">
+                and fabushijian = #{fabushijian}
+            </if>
+            <if test="userid != null">
+                and userid = #{userid}
+            </if>
+            <if test="miaoshu != null and miaoshu != ''">
+                and miaoshu = #{miaoshu}
+            </if>
+            <if test="zhuangxiu != null and zhuangxiu != ''">
+                and zhuangxiu = #{zhuangxiu}
+            </if>
+
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from fangyuanxinxi
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="addtime != null">
+                and addtime = #{addtime}
+            </if>
+            <if test="fangyuanmingcheng != null and fangyuanmingcheng != ''">
+                and fangyuanmingcheng = #{fangyuanmingcheng}
+            </if>
+            <if test="fangyuanleixing != null and fangyuanleixing != ''">
+                and fangyuanleixing = #{fangyuanleixing}
+            </if>
+            <if test="fangzihuxing != null and fangzihuxing != ''">
+                and fangzihuxing = #{fangzihuxing}
+            </if>
+            <if test="fangyuanquyu != null and fangyuanquyu != ''">
+                and fangyuanquyu = #{fangyuanquyu}
+            </if>
+            <if test="fangyuantupian != null and fangyuantupian != ''">
+                and fangyuantupian = #{fangyuantupian}
+            </if>
+            <if test="zhuangtai != null and zhuangtai != ''">
+                and zhuangtai = #{zhuangtai}
+            </if>
+            <if test="jutiweizhi != null and jutiweizhi != ''">
+                and jutiweizhi = #{jutiweizhi}
+            </if>
+            <if test="mianji != null and mianji != ''">
+                and mianji = #{mianji}
+            </if>
+            <if test="meimijiage != null and meimijiage != ''">
+                and meimijiage = #{meimijiage}
+            </if>
+            <if test="zongjine != null and zongjine != ''">
+                and zongjine = #{zongjine}
+            </if>
+            <if test="jingjirenzhanghao != null and jingjirenzhanghao != ''">
+                and jingjirenzhanghao = #{jingjirenzhanghao}
+            </if>
+            <if test="jingjirenxingming != null and jingjirenxingming != ''">
+                and jingjirenxingming = #{jingjirenxingming}
+            </if>
+            <if test="fabushijian != null">
+                and fabushijian = #{fabushijian}
+            </if>
+            <if test="userid != null">
+                and userid = #{userid}
+            </if>
+            <if test="miaoshu != null and miaoshu != ''">
+                and miaoshu = #{miaoshu}
+            </if>
+            <if test="zhuangxiu != null and zhuangxiu != ''">
+                and zhuangxiu = #{zhuangxiu}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into fangyuanxinxi(addtime, fangyuanmingcheng, fangyuanleixing, fangzihuxing, fangyuanquyu, fangyuantupian, zhuangtai, jutiweizhi, mianji, meimijiage, zongjine, jingjirenzhanghao, jingjirenxingming, fabushijian, userid, miaoshu, zhuangxiu)
+        values (#{addtime}, #{fangyuanmingcheng}, #{fangyuanleixing}, #{fangzihuxing}, #{fangyuanquyu}, #{fangyuantupian}, #{zhuangtai}, #{jutiweizhi}, #{mianji}, #{meimijiage}, #{zongjine}, #{jingjirenzhanghao}, #{jingjirenxingming}, #{fabushijian}, #{userid}, #{miaoshu}, #{zhuangxiu})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into fangyuanxinxi(addtime, fangyuanmingcheng, fangyuanleixing, fangzihuxing, fangyuanquyu, fangyuantupian, zhuangtai, jutiweizhi, mianji, meimijiage, zongjine, jingjirenzhanghao, jingjirenxingming, fabushijian, userid, miaoshu, zhuangxiu)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.addtime}, #{entity.fangyuanmingcheng}, #{entity.fangyuanleixing}, #{entity.fangzihuxing}, #{entity.fangyuanquyu}, #{entity.fangyuantupian}, #{entity.zhuangtai}, #{entity.jutiweizhi}, #{entity.mianji}, #{entity.meimijiage}, #{entity.zongjine}, #{entity.jingjirenzhanghao}, #{entity.jingjirenxingming}, #{entity.fabushijian}, #{entity.userid}, #{entity.miaoshu}, #{entity.zhuangxiu})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into fangyuanxinxi(addtime, fangyuanmingcheng, fangyuanleixing, fangzihuxing, fangyuanquyu, fangyuantupian, zhuangtai, jutiweizhi, mianji, meimijiage, zongjine, jingjirenzhanghao, jingjirenxingming, fabushijian, userid, miaoshu, zhuangxiu)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.addtime}, #{entity.fangyuanmingcheng}, #{entity.fangyuanleixing}, #{entity.fangzihuxing}, #{entity.fangyuanquyu}, #{entity.fangyuantupian}, #{entity.zhuangtai}, #{entity.jutiweizhi}, #{entity.mianji}, #{entity.meimijiage}, #{entity.zongjine}, #{entity.jingjirenzhanghao}, #{entity.jingjirenxingming}, #{entity.fabushijian}, #{entity.userid}, #{entity.miaoshu}, #{entity.zhuangxiu})
+        </foreach>
+        on duplicate key update
+        addtime = values(addtime),
+        fangyuanmingcheng = values(fangyuanmingcheng),
+        fangyuanleixing = values(fangyuanleixing),
+        fangzihuxing = values(fangzihuxing),
+        fangyuanquyu = values(fangyuanquyu),
+        fangyuantupian = values(fangyuantupian),
+        zhuangtai = values(zhuangtai),
+        jutiweizhi = values(jutiweizhi),
+        mianji = values(mianji),
+        meimijiage = values(meimijiage),
+        zongjine = values(zongjine),
+        jingjirenzhanghao = values(jingjirenzhanghao),
+        jingjirenxingming = values(jingjirenxingming),
+        fabushijian = values(fabushijian),
+        userid = values(userid),
+        miaoshu = values(miaoshu),
+        zhuangxiu = values(zhuangxiu)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update fangyuanxinxi
+        <set>
+            <if test="addtime != null">
+                addtime = #{addtime},
+            </if>
+            <if test="fangyuanmingcheng != null and fangyuanmingcheng != ''">
+                fangyuanmingcheng = #{fangyuanmingcheng},
+            </if>
+            <if test="fangyuanleixing != null and fangyuanleixing != ''">
+                fangyuanleixing = #{fangyuanleixing},
+            </if>
+            <if test="fangzihuxing != null and fangzihuxing != ''">
+                fangzihuxing = #{fangzihuxing},
+            </if>
+            <if test="fangyuanquyu != null and fangyuanquyu != ''">
+                fangyuanquyu = #{fangyuanquyu},
+            </if>
+            <if test="fangyuantupian != null and fangyuantupian != ''">
+                fangyuantupian = #{fangyuantupian},
+            </if>
+            <if test="zhuangtai != null and zhuangtai != ''">
+                zhuangtai = #{zhuangtai},
+            </if>
+            <if test="jutiweizhi != null and jutiweizhi != ''">
+                jutiweizhi = #{jutiweizhi},
+            </if>
+            <if test="mianji != null and mianji != ''">
+                mianji = #{mianji},
+            </if>
+            <if test="meimijiage != null and meimijiage != ''">
+                meimijiage = #{meimijiage},
+            </if>
+            <if test="zongjine != null and zongjine != ''">
+                zongjine = #{zongjine},
+            </if>
+            <if test="jingjirenzhanghao != null and jingjirenzhanghao != ''">
+                jingjirenzhanghao = #{jingjirenzhanghao},
+            </if>
+            <if test="jingjirenxingming != null and jingjirenxingming != ''">
+                jingjirenxingming = #{jingjirenxingming},
+            </if>
+            <if test="fabushijian != null">
+                fabushijian = #{fabushijian},
+            </if>
+            <if test="userid != null">
+                userid = #{userid},
+            </if>
+            <if test="miaoshu != null and miaoshu != ''">
+                miaoshu = #{miaoshu},
+            </if>
+            <if test="zhuangxiu != null and zhuangxiu != ''">
+                zhuangxiu = #{zhuangxiu},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from fangyuanxinxi where id = #{id}
+    </delete>
+
+    <select id="fangyuanxinxi" resultType="com.example.buyhouse.entity.Fangyuanxinxi">
+        select * from fangyuanxinxi
+    </select>
+
+    <select id="fangyuanxinxiBylsopid" resultType="com.example.buyhouse.entity.Fangyuanxinxi">
+        select * from fangyuanxinxi where id in (select id from shoucang where opid = #{opid})
+    </select>
+
+    <select id="fangyuanxinxiByscopid" resultType="com.example.buyhouse.entity.Fangyuanxinxi">
+        select * from fangyuanxinxi where id in (select id from shoucang where opid = #{opid} and value like '1')
+    </select>
+
+    <select id="getpage" resultType="com.example.buyhouse.entity.Fangyuanxinxi">
+        select * from fangyuanxinxi
+        <where>
+            <if test="query != null and query != ''">
+                and fangyuanmingcheng like concat ('%',#{query},'%')
+            </if>
+        </where>
+    </select>
+
+<!--    <update id="updatetupian"-->
+    <update id="updatetupian">
+        update fangyuanxinxi
+        <set>
+            <if test="fangyuantupian != null and fangyuantupian != ''">
+                fangyuantupian = #{fangyuantupian},
+            </if>
+
+        </set>
+        where id = #{id}
+    </update>
+
+
+    <select id="findbyid" resultType="com.example.buyhouse.entity.Fangyuanxinxi">
+        select * from fangyuanxinxi where id = #{id}
+    </select>
+
+    <select id="findbyname" resultType="com.example.buyhouse.entity.Fangyuanxinxi">
+        select * from fangyuanxinxi
+        <where>
+            <if test="fname != null and fname != ''">
+                and fangyuanmingcheng like concat ('%',#{fname},'%')
+            </if>
+        </where>
+    </select>
+
+
+
+    <select id="sixuantiaojian" resultType="com.example.buyhouse.entity.Fangyuanxinxi">
+        select * from fangyuanxinxi
+        <where>
+            'a' = 'a'and  ${_parameter}
+        </where>
+    </select>
+
+    <select id="shoushuosershou" resultType="com.example.buyhouse.entity.Fangyuanxinxi">
+        select * from fangyuanxinxi
+        <where>
+            fangyuanleixing like concat ('%',"二手",'%')
+        </where>
+    </select>
+
+    <select id="shoushuoxinfang" resultType="com.example.buyhouse.entity.Fangyuanxinxi">
+        select * from fangyuanxinxi
+        <where>
+            fangyuanleixing like concat ('%',"新",'%')
+        </where>
+    </select>
+
+    <select id="shoushuoweikaipan" resultType="com.example.buyhouse.entity.Fangyuanxinxi">
+        select * from fangyuanxinxi
+        <where>
+            zhuangtai like concat ('%',"未开盘",'%')
+        </where>
+    </select>
+
+    <select id="zhaoxiaoqu" resultType="com.example.buyhouse.entity.Fangyuanxinxi">
+        SELECT * FROM fangyuanxinxi GROUP BY fangyuanmingcheng
+    </select>
+
+    <select id="zhaohuxin" resultType="com.example.buyhouse.entity.Fangyuanxinxi">
+        SELECT * FROM fangyuanxinxi GROUP BY fangzihuxing
+    </select>
+    <select id="chafangjia" resultType="com.example.buyhouse.entity.Fangyuanxinxi">
+        SELECT * FROM fangyuanxinxi GROUP BY zongjine
+    </select>
+
+
+    <select id="shaixuankey" resultType="com.example.buyhouse.entity.Fangyuanxinxi">
+        select * from fangyuanxinxi
+        <where>
+            'a' = 'a'
+            <if test="fangyuanmingcheng != null and fangyuanmingcheng != ''">
+               and fangyuanmingcheng like concat ('%',#{fangyuanmingcheng},'%')
+            </if>
+            <if test="fangyuanleixing != null and fangyuanleixing != ''">
+               and fangyuanleixing like concat ('%',#{fangyuanleixing},'%')
+            </if>
+            <if test="fangzihuxing != null and fangzihuxing != ''">
+               and fangzihuxing like concat ('%',#{fangzihuxing},'%')
+            </if>
+            <if test="fangyuanquyu != null and fangyuanquyu != ''">
+                and fangyuanquyu  like concat ('%',#{fangyuanquyu},'%')
+            </if>
+            <if test="zhuangtai != null and zhuangtai != ''">
+                and zhuangtai like concat ('%',#{zhuangtai},'%')
+            </if>
+            <if test="jutiweizhi != null and jutiweizhi != ''">
+                and jutiweizhi like concat ('%',#{jutiweizhi},'%')
+            </if>
+            <if test="mianji != null and mianji != ''">
+                and mianji like concat ('%',#{mianji},'%')
+            </if>
+            <if test="meimijiage != null and meimijiage != ''">
+                and meimijiage like concat ('%',#{meimijiage},'%')
+            </if>
+            <if test="zongjine != null and zongjine != ''">
+                and zongjine like concat ('%',#{zongjine},'%')
+            </if>
+            <if test="zhuangxiu != null and zhuangxiu != ''">
+                and zhuangxiu like concat ('%',#{zhuangxiu},'%')
+            </if>
+        </where>
+    </select>
+
+    <select id="findexcpetid" resultType="com.example.buyhouse.entity.Fangyuanxinxi">
+        select * from fangyuanxinxi where id != #{id}
+    </select>
+
+</mapper>
+

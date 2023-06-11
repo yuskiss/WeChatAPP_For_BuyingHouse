@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.buyhouse.dao.YonghuDao">
+
+    <resultMap type="com.example.buyhouse.entity.Yonghu" id="YonghuMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="addtime" column="addtime" jdbcType="TIMESTAMP"/>
+        <result property="yonghuzhanghao" column="yonghuzhanghao" jdbcType="VARCHAR"/>
+        <result property="yonghuxingming" column="yonghuxingming" jdbcType="VARCHAR"/>
+        <result property="mima" column="mima" jdbcType="VARCHAR"/>
+        <result property="xingbie" column="xingbie" jdbcType="VARCHAR"/>
+        <result property="nianling" column="nianling" jdbcType="INTEGER"/>
+        <result property="lianxidianhua" column="lianxidianhua" jdbcType="VARCHAR"/>
+        <result property="dianziyouxiang" column="dianziyouxiang" jdbcType="VARCHAR"/>
+        <result property="shenfenzhenghao" column="shenfenzhenghao" jdbcType="VARCHAR"/>
+        <result property="jiatingdizhi" column="jiatingdizhi" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="YonghuMap">
+        select
+          id, addtime, yonghuzhanghao, yonghuxingming, mima, xingbie, nianling, lianxidianhua, dianziyouxiang, shenfenzhenghao, jiatingdizhi
+        from yonghu
+        where id = #{id}
+    </select>
+<!--searchopenid通过openid查询-->
+    <select id="searchopenid" resultMap="YonghuMap">
+        select
+            id, addtime, yonghuzhanghao, yonghuxingming, mima, xingbie, nianling, lianxidianhua, dianziyouxiang, shenfenzhenghao, jiatingdizhi
+        from yonghu
+        where yonghuzhanghao = #{openid}
+    </select>
+
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="YonghuMap">
+        select
+          id, addtime, yonghuzhanghao, yonghuxingming, mima, xingbie, nianling, lianxidianhua, dianziyouxiang, shenfenzhenghao, jiatingdizhi
+        from yonghu
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="addtime != null">
+                and addtime = #{addtime}
+            </if>
+            <if test="yonghuzhanghao != null and yonghuzhanghao != ''">
+                and yonghuzhanghao = #{yonghuzhanghao}
+            </if>
+            <if test="yonghuxingming != null and yonghuxingming != ''">
+                and yonghuxingming = #{yonghuxingming}
+            </if>
+            <if test="mima != null and mima != ''">
+                and mima = #{mima}
+            </if>
+            <if test="xingbie != null and xingbie != ''">
+                and xingbie = #{xingbie}
+            </if>
+            <if test="nianling != null">
+                and nianling = #{nianling}
+            </if>
+            <if test="lianxidianhua != null and lianxidianhua != ''">
+                and lianxidianhua = #{lianxidianhua}
+            </if>
+            <if test="dianziyouxiang != null and dianziyouxiang != ''">
+                and dianziyouxiang = #{dianziyouxiang}
+            </if>
+            <if test="shenfenzhenghao != null and shenfenzhenghao != ''">
+                and shenfenzhenghao = #{shenfenzhenghao}
+            </if>
+            <if test="jiatingdizhi != null and jiatingdizhi != ''">
+                and jiatingdizhi = #{jiatingdizhi}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from yonghu
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="addtime != null">
+                and addtime = #{addtime}
+            </if>
+            <if test="yonghuzhanghao != null and yonghuzhanghao != ''">
+                and yonghuzhanghao = #{yonghuzhanghao}
+            </if>
+            <if test="yonghuxingming != null and yonghuxingming != ''">
+                and yonghuxingming = #{yonghuxingming}
+            </if>
+            <if test="mima != null and mima != ''">
+                and mima = #{mima}
+            </if>
+            <if test="xingbie != null and xingbie != ''">
+                and xingbie = #{xingbie}
+            </if>
+            <if test="nianling != null">
+                and nianling = #{nianling}
+            </if>
+            <if test="lianxidianhua != null and lianxidianhua != ''">
+                and lianxidianhua = #{lianxidianhua}
+            </if>
+            <if test="dianziyouxiang != null and dianziyouxiang != ''">
+                and dianziyouxiang = #{dianziyouxiang}
+            </if>
+            <if test="shenfenzhenghao != null and shenfenzhenghao != ''">
+                and shenfenzhenghao = #{shenfenzhenghao}
+            </if>
+            <if test="jiatingdizhi != null and jiatingdizhi != ''">
+                and jiatingdizhi = #{jiatingdizhi}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into yonghu(addtime, yonghuzhanghao, yonghuxingming, mima, xingbie, nianling, lianxidianhua, dianziyouxiang, shenfenzhenghao, jiatingdizhi)
+        values (#{addtime}, #{yonghuzhanghao}, #{yonghuxingming}, #{mima}, #{xingbie}, #{nianling}, #{lianxidianhua}, #{dianziyouxiang}, #{shenfenzhenghao}, #{jiatingdizhi})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into yonghu(addtime, yonghuzhanghao, yonghuxingming, mima, xingbie, nianling, lianxidianhua, dianziyouxiang, shenfenzhenghao, jiatingdizhi)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.addtime}, #{entity.yonghuzhanghao}, #{entity.yonghuxingming}, #{entity.mima}, #{entity.xingbie}, #{entity.nianling}, #{entity.lianxidianhua}, #{entity.dianziyouxiang}, #{entity.shenfenzhenghao}, #{entity.jiatingdizhi})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into yonghu(addtime, yonghuzhanghao, yonghuxingming, mima, xingbie, nianling, lianxidianhua, dianziyouxiang, shenfenzhenghao, jiatingdizhi)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.addtime}, #{entity.yonghuzhanghao}, #{entity.yonghuxingming}, #{entity.mima}, #{entity.xingbie}, #{entity.nianling}, #{entity.lianxidianhua}, #{entity.dianziyouxiang}, #{entity.shenfenzhenghao}, #{entity.jiatingdizhi})
+        </foreach>
+        on duplicate key update
+        addtime = values(addtime),
+        yonghuzhanghao = values(yonghuzhanghao),
+        yonghuxingming = values(yonghuxingming),
+        mima = values(mima),
+        xingbie = values(xingbie),
+        nianling = values(nianling),
+        lianxidianhua = values(lianxidianhua),
+        dianziyouxiang = values(dianziyouxiang),
+        shenfenzhenghao = values(shenfenzhenghao),
+        jiatingdizhi = values(jiatingdizhi)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update yonghu
+        <set>
+            <if test="addtime != null">
+                addtime = #{addtime},
+            </if>
+            <if test="yonghuzhanghao != null and yonghuzhanghao != ''">
+                yonghuzhanghao = #{yonghuzhanghao},
+            </if>
+            <if test="yonghuxingming != null and yonghuxingming != ''">
+                yonghuxingming = #{yonghuxingming},
+            </if>
+            <if test="mima != null and mima != ''">
+                mima = #{mima},
+            </if>
+            <if test="xingbie != null and xingbie != ''">
+                xingbie = #{xingbie},
+            </if>
+            <if test="nianling != null">
+                nianling = #{nianling},
+            </if>
+            <if test="lianxidianhua != null and lianxidianhua != ''">
+                lianxidianhua = #{lianxidianhua},
+            </if>
+            <if test="dianziyouxiang != null and dianziyouxiang != ''">
+                dianziyouxiang = #{dianziyouxiang},
+            </if>
+            <if test="shenfenzhenghao != null and shenfenzhenghao != ''">
+                shenfenzhenghao = #{shenfenzhenghao},
+            </if>
+            <if test="jiatingdizhi != null and jiatingdizhi != ''">
+                jiatingdizhi = #{jiatingdizhi},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+
+    <update id="updatenewuser">
+        update yonghu
+        <set>
+            <if test="addtime != null">
+                addtime = #{addtime},
+            </if>
+
+            <if test="yonghuxingming != null and yonghuxingming != ''">
+                yonghuxingming = #{yonghuxingming},
+            </if>
+            <if test="mima != null and mima != ''">
+                mima = #{mima},
+            </if>
+            <if test="xingbie != null and xingbie != ''">
+                xingbie = #{xingbie},
+            </if>
+            <if test="nianling != null">
+                nianling = #{nianling},
+            </if>
+            <if test="lianxidianhua != null and lianxidianhua != ''">
+                lianxidianhua = #{lianxidianhua},
+            </if>
+            <if test="dianziyouxiang != null and dianziyouxiang != ''">
+                dianziyouxiang = #{dianziyouxiang},
+            </if>
+            <if test="shenfenzhenghao != null and shenfenzhenghao != ''">
+                shenfenzhenghao = #{shenfenzhenghao},
+            </if>
+            <if test="jiatingdizhi != null and jiatingdizhi != ''">
+                jiatingdizhi = #{jiatingdizhi},
+            </if>
+        </set>
+        where yonghuzhanghao = #{yonghuzhanghao}
+    </update>
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from yonghu where id = #{id}
+    </delete>
+
+</mapper>
+

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.buyhouse.dao.ConfiglunbotuDao">
+
+    <resultMap type="com.example.buyhouse.entity.Configlunbotu" id="ConfiglunbotuMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="value" column="value" jdbcType="VARCHAR"/>
+        <result property="pngid" column="pngid" jdbcType="VARCHAR"/>
+
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="ConfiglunbotuMap">
+        select
+          id, name, value, pngid
+        from configlunbotu
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="ConfiglunbotuMap">
+        select
+          id, name, value, pngid
+        from configlunbotu
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="value != null and value != ''">
+                and value = #{value}
+            </if>
+            <if test="pngid != null and pngid != ''">
+                and pngid = #{pngid}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from configlunbotu
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="value != null and value != ''">
+                and value = #{value}
+            </if>
+            <if test="pngid != null and pngid != ''">
+                and pngid = #{pngid}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into configlunbotu(name, value, pngid)
+        values (#{name}, #{value}, #{pngid})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into configlunbotu(name, value, pngid)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.name}, #{entity.value}, #{entity.pngid})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into configlunbotu(name, value, pngid)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.name}, #{entity.value}, #{entity.pngid})
+        </foreach>
+        on duplicate key update
+        name = values(name),
+        value = values(value),
+        pngid = values(pngid)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update configlunbotu
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="value != null and value != ''">
+                value = #{value},
+            </if>
+            <if test="pngid != null and pngid != ''">
+                pngid = #{pngid},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from configlunbotu where id = #{id}
+    </delete>
+
+    <select id="fanglunbotu" resultType="com.example.buyhouse.entity.Configlunbotu">
+        select * from fangyuanxinxi join configlunbotu on fangyuanxinxi.id = pngid where pngid = #{id}
+    </select>
+
+</mapper>
+
