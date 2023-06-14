@@ -10,4 +10,4 @@ wechatapp--java springboot--vue--elementplus
   
   项目于不同分支master/vue
 
-![](src/main/webapp/img/weixinduan)
+![系统管理界面]([src/main/webapp/img/weixinduan](https://github.com/yuskiss/WeChatAPP_For_BuyingHouse/blob/master/src/main/webapp/img/guanliduan.png))
