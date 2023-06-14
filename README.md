@@ -2,7 +2,7 @@
 
 /branch_master_AND_Vue
 
-wechatapp--java springboot
+wechatapp--java springboot--vue--elementplus
 
 
   #欢迎来到我的小项目
