@@ -12,7 +12,7 @@ wechatapp--java springboot--vue--elementplus
   
   微信端界面展示
   
-  ![系统微信端](https://github.com/yuskiss/WeChatAPP_For_BuyingHouse/commit/b061dbb9f4243c057c78f1f321e8a06d694a9a95)
+  ![系统微信端](https://github.com/yuskiss/WeChatAPP_For_BuyingHouse/blob/master/src/main/webapp/img/weixingduan.png)
   
   管理端界面展示
 
