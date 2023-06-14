@@ -10,3 +10,4 @@ wechatapp--java springboot--vue--elementplus
   
   项目于不同分支master/vue
 
+![](src/main/webapp/img/weixinduan)
